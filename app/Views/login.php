@@ -51,7 +51,7 @@
                     </div>
                 </form>
                 <p class="mb-0">
-                    <a href="<?=base_url("auth/registrasi")?>" class="text-center">Register a new membership</a>
+                    <a href="<?=base_url("auth/registration")?>" class="text-center">Register a new membership</a>
                 </p>
             </div>
             <!-- /.card-body -->

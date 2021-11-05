@@ -148,18 +148,15 @@ function jadwalController($scope, helperServices, jadwalServices, message, $sce)
         var newArray = [];
         var dataTanggal = "";
         data.forEach(element => {
-            var tgl = element.waktu_acara.split(" ");
-            if (dataTanggal != tgl[0]) {
-                element.tanggal = tgl[0];
-                newArray.push(element);
-                dataTanggal = tgl[0];
-            }
+            element.tanggal = element.tanggal_pakai;
+            dataTanggal = element.tanggal_pakai;
+            newArray.push(element);
         });
 
         newArray.forEach(element => {
             // element.display = 'background';
             element.textColor= 'white';
-            element.title = "Alamat Antar: " + element.alamat;
+            element.title = "Acara: " + element.peruntukan;
             element.start = element.tanggal;
             element.end = element.tanggal;
             element.langth = 0;

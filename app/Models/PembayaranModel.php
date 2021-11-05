@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class FasilitasModel extends Model
+class PembayaranModel extends Model
 {
     protected $DBGroup = 'default';
-    protected $table = 'fasilitass';
+    protected $table = 'pembayarans';
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $insertID = 0;
     protected $returnType = 'array';
     protected $useSoftDeletes = false;
     protected $protectFields = true;
-    protected $allowedFields = ['nama', 'satuan', 'tarif', 'gambar', 'keterangan', 'jumlah'];
+    protected $allowedFields = ['id', 'tanggalbayar', 'nominal', 'bukti', 'pesanan_id'];
 
     // Dates
     protected $useTimestamps = false;

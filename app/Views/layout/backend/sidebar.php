@@ -32,35 +32,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?=base_url('admin/menu')?>" class="nav-link {{title=='Menu Makanan' ? 'active': ''}}">
+                    <a href="<?=base_url('admin/konsumen')?>" class="nav-link {{title=='Konsumen' ? 'active': ''}}">
                         <i class="nav-icon fas fa-utensils"></i>
                         <p>
-                            Menu Makanan
+                            Konsumen
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?=base_url('admin/paket')?>" class="nav-link {{title=='Paket Makanan' ? 'active': ''}}">
-                        <i class="nav-icon fas fa-box-open"></i>
+                    <a href="<?=base_url('admin/fasilitas')?>" class="nav-link {{title=='Fasilitas' ? 'active': ''}}">
+                        <i class="nav-icon fas fa-utensils"></i>
                         <p>
-                            Paket Makanan
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?=base_url('admin/pegawai')?>" class="nav-link {{title=='Pegawai' ? 'active': ''}}">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Pegawai
-                        </p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="<?=base_url('admin/customer')?>" class="nav-link {{title=='Customer' ? 'active': ''}}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Customer
+                            Fasilitas
                         </p>
                     </a>
                 </li>
@@ -73,10 +56,18 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?=base_url('admin/pesanan')?>" class="nav-link {{title=='Pesanan' ? 'active': ''}}">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                            Laporan
+                        </p>
+                    </a>
+                </li>
                 <!-- <?php endif;?> -->
 
 
-                <?php if (session()->get('role') == 'Customer'): ?>
+                <?php if (session()->get('role') == 'Konsumen'): ?>
                 <li class="nav-item">
                     <a href="<?=base_url('customer/home')?>" class="nav-link {{title=='Home' ? 'active': ''}}">
                         <i class="nav-icon fas fa-home"></i>
@@ -86,7 +77,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?=base_url('customer/pesanan')?>" class="nav-link {{title=='Pesanan' ? 'active': ''}}">
+                    <a href="<?=base_url('konsumen/boking')?>" class="nav-link {{title=='Pesanan' ? 'active': ''}}">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
                             Pesanan

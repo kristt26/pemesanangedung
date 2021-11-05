@@ -13,16 +13,20 @@ class Auth extends ResourceController
 
     public function index()
     {
-        // $data['sidebar'] = view('layout/backend/sidebar');
-        return view('login');
+        $this->model->check();
+        return view("login");
+    }
+
+    public function registration()
+    {
+        $this->model->check();
+        return view("registrasi");
     }
 
     public function register()
     {
-        $data = $this->request->getJSON();
-        $data->password = password_hash($data->password, PASSWORD_DEFAULT);
-
-        if ($this->model->insert($data)) {
+        $data = $this->request->getPost();
+        if ($this->model->simpan($data)) {
             $response = [
                 'status' => 200,
                 "error" => false,
@@ -39,65 +43,28 @@ class Auth extends ResourceController
             ];
         }
 
-        return $this->respondCreated($response);
+        // return $this->respondCreated($response);
+        return redirect()->to(base_url());
     }
 
     public function login()
     {
 
-        $data = $this->request->getJSON();
-        $userdata = $this->model->where('username', $data->username)->first();
-
-        if (!empty($userdata)) {
-
-            if (password_verify($this->request->getVar("password"), $userdata['password'])) {
-
-                $key = keyJWT;
-
-                $iat = time(); // current timestamp value
-                $nbf = $iat + 10;
-                $exp = $iat + 3600;
-
-                $payload = array(
-                    "iss" => base_url(),
-                    "aud" => base_url(),
-                    "iat" => $iat, // issued at
-                    "nbf" => $nbf, //not before in seconds
-                    "exp" => $exp, // expire time in seconds
-                    "data" => $userdata,
-                );
-
-                $token = JWT::encode($payload, $key);
-
-                $response = [
-                    'status' => 200,
-                    'error' => false,
-                    'messages' => 'User logged In successfully',
-                    'data' => [
-                        'token' => $token,
-                    ],
-                ];
-                return $this->respondCreated($response);
+        $session = session();
+        $data = (array) $this->request->getPost();
+        $result = $this->model->login($data);
+        if ($result) {
+            $result['logged_in'] = true;
+            $session->set($result);
+            if ($result['role'] == 'Admin') {
+                return redirect()->to(base_url('home'));
             } else {
-
-                $response = [
-                    'status' => 500,
-                    'error' => true,
-                    'messages' => 'Incorrect details',
-                    'data' => [],
-                ];
-                return $this->respondCreated($response);
+                return redirect()->to(base_url('home'));
             }
-        } else {
-            $response = [
-                'status' => 500,
-                'error' => true,
-                'messages' => 'User not found',
-                'data' => [],
-            ];
-            return $this->respondCreated($response);
-        }
 
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function details()
@@ -132,5 +99,11 @@ class Auth extends ResourceController
             ];
             return $this->respondCreated($response);
         }
+    }
+    public function logout()
+    {
+        $session = session();
+        $session->destroy();
+        return redirect()->to('/');
     }
 }

@@ -25,7 +25,6 @@
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-
         <?=$sidebar?>
 
         <div class="content-wrapper">

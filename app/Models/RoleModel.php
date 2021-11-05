@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class KonsumenModel extends Model
+class RoleModel extends Model
 {
     protected $DBGroup              = 'default';
-    protected $table                = 'konsumens';
+    protected $table                = 'roles';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['id', 'nik','nama', 'kontak', 'alamat', 'users_id'];
+    protected $allowedFields        = ['id', 'role'];
 
     // Dates
     protected $useTimestamps        = false;

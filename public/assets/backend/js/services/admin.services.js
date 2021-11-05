@@ -1,7 +1,7 @@
 angular.module('admin.service', [])
     .factory('dashboardServices', dashboardServices)
     .factory('homeServices', homeServices)
-    .factory('menuServices', menuServices)
+    .factory('fasilitasServices', fasilitasServices)
     .factory('paketServices', paketServices)
     .factory('pegawaiServices', pegawaiServices)
     .factory('customerServices', customerServices)
@@ -123,8 +123,8 @@ function homeServices($http, $q, helperServices, AuthService) {
 
 }
 
-function menuServices($http, $q, helperServices, AuthService, message) {
-    var controller = helperServices.url + 'admin/menu';
+function fasilitasServices($http, $q, helperServices, AuthService, message) {
+    var controller = helperServices.url + 'admin/fasilitas';
     var service = {};
     service.data = [];
     return {
@@ -144,7 +144,7 @@ function menuServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -163,7 +163,7 @@ function menuServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -189,7 +189,7 @@ function menuServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -208,7 +208,7 @@ function menuServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -237,7 +237,7 @@ function paketServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -256,7 +256,7 @@ function paketServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -282,7 +282,7 @@ function paketServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -304,7 +304,7 @@ function paketServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -330,7 +330,7 @@ function paketServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -354,7 +354,7 @@ function paketServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -383,7 +383,7 @@ function pegawaiServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -402,7 +402,7 @@ function pegawaiServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -428,7 +428,7 @@ function pegawaiServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -447,7 +447,7 @@ function pegawaiServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -456,7 +456,7 @@ function pegawaiServices($http, $q, helperServices, AuthService, message) {
 }
 
 function customerServices($http, $q, helperServices, AuthService, message) {
-    var controller = helperServices.url + 'admin/customer';
+    var controller = helperServices.url + 'admin/konsumen';
     var service = {};
     service.data = [];
     return {
@@ -476,7 +476,7 @@ function customerServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -495,7 +495,7 @@ function customerServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -521,7 +521,7 @@ function customerServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -540,7 +540,7 @@ function customerServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -569,7 +569,7 @@ function dashboardServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -588,7 +588,7 @@ function dashboardServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -614,7 +614,7 @@ function dashboardServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -633,7 +633,7 @@ function dashboardServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -642,7 +642,7 @@ function dashboardServices($http, $q, helperServices, AuthService, message) {
 }
 
 function pesananServices($http, $q, helperServices, AuthService, message) {
-    var controller = helperServices.url + 'customer/pesanan';
+    var controller = helperServices.url + 'konsumen/boking';
     var service = {};
     service.data = [];
     return {
@@ -653,7 +653,7 @@ function pesananServices($http, $q, helperServices, AuthService, message) {
         var def = $q.defer();
         $http({
             method: 'get',
-            url: controller + "/read/",
+            url: controller + "/read",
             headers: AuthService.getHeader()
         }).then(
             (res) => {
@@ -662,7 +662,7 @@ function pesananServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -680,7 +680,7 @@ function pesananServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -706,7 +706,7 @@ function pesananServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -725,7 +725,7 @@ function pesananServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -748,7 +748,7 @@ function pesananServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -757,7 +757,7 @@ function pesananServices($http, $q, helperServices, AuthService, message) {
 }
 
 function jadwalServices($http, $q, helperServices, AuthService, message) {
-    var controller = helperServices.url + 'customer/jadwal/';
+    var controller = helperServices.url + 'jadwal/';
     var service = {};
     service.data = [];
     return {
@@ -823,7 +823,7 @@ function pesananAdminServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -842,7 +842,7 @@ function pesananAdminServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -864,7 +864,7 @@ function pesananAdminServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -883,7 +883,7 @@ function pesananAdminServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;
@@ -906,7 +906,7 @@ function pesananAdminServices($http, $q, helperServices, AuthService, message) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err.data.messages.error)
+                message.error(err.data.message)
             }
         );
         return def.promise;

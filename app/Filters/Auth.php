@@ -26,33 +26,13 @@ class Auth implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $key = keyJWT;
-        $authHeader = $this->request->getHeader("Authorization");
-        $authHeader = $authHeader->getValue();
-        $token = $authHeader;
-
-        try {
-            $decoded = JWT::decode($token, $key, array("HS256"));
-            if ($decoded) {
-                $response = [
-                    'status' => 200,
-                    'error' => false,
-                    'messages' => 'User details',
-                    'data' => [
-                        'profile' => $decoded,
-                    ],
-                ];
-                return $this->respondCreated($response);
-            }
-        } catch (Exception $ex) {
-
-            $response = [
-                'status' => 401,
-                'error' => true,
-                'messages' => 'Access denied',
-                'data' => [],
-            ];
-            return $this->respondCreated($response);
+        $session = session();
+        if($session->get('logged_in') && $session->get('logged_in')== false){
+            $result['logged_in'] = true;
+            $session->set($result);
+            return redirect()->to(base_url('auth'));
+        }else{
+            echo "Testing";
         }
     }
 
@@ -70,6 +50,6 @@ class Auth implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        //
+        
     }
 }

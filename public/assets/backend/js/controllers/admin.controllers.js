@@ -1,12 +1,13 @@
 angular.module('adminctrl', [])
     .controller('pageController', pageController)
     .controller('homeController', homeController)
-    .controller('menuController', menuController)
+    .controller('fasilitasController', fasilitasController)
     .controller('paketController', paketController)
     .controller('pegawaiController', pegawaiController)
     .controller('customerController', customerController)
     .controller('jadwalController', jadwalController)
     .controller('pesananController', pesananController)
+    .controller('bokingController', bokingController)
     ;
 
 
@@ -113,25 +114,25 @@ function homeController($scope, $http, helperServices, homeServices, message) {
     }
 }
 
-function menuController($scope, $http, helperServices, menuServices, message, $sce) {
-    $scope.$emit("SendUp", "Menu Makanan");
+function fasilitasController($scope, $http, helperServices, fasilitasServices, message, $sce) {
+    $scope.$emit("SendUp", "Fasilitas");
     $scope.datas = [];
     $scope.titleModal = "Tambah Data";
     $scope.model = {};
-    menuServices.get().then(res => {
+    fasilitasServices.get().then(res => {
         $scope.datas = res;
     })
 
-    $scope.save = () => {
-        if ($scope.model.id) {
-            menuServices.put($scope.model).then(res => {
+    $scope.save = (item) => {
+        if (item.id) {
+            fasilitasServices.put(item).then(res => {
                 message.info("Berhasil")
                 $("#tambah").modal("hide");
                 $scope.titleModal = "Tambah Data";
                 $scope.model = {};
             })
         } else {
-            menuServices.post($scope.model).then(res => {
+            fasilitasServices.post(item).then(res => {
                 message.info("Berhasil")
                 $("#tambah").modal("hide");
                 $scope.titleModal = "Tambah Data";
@@ -143,7 +144,14 @@ function menuController($scope, $http, helperServices, menuServices, message, $s
     $scope.edit = (item) => {
         $scope.titleModal = "Ubah Data";
         $scope.model = angular.copy(item);
+        $scope.model.files = $sce.trustAsResourceUrl(helperServices.url + "assets/backend/img/foto/" + item.gambar);
         $("#tambah").modal("show");
+    }
+
+    $scope.clear = ()=>{
+        $scope.model = {};
+        $scope.model.files = $sce.trustAsResourceUrl(helperServices.url + "assets/backend/img/foto/" + "");
+
     }
 
     $scope.cekFile = (item) => {
@@ -152,7 +160,7 @@ function menuController($scope, $http, helperServices, menuServices, message, $s
     $scope.files = "";
     $scope.showFoto = (item) => {
         $scope.$applyAsync(x => {
-            $scope.files = $sce.trustAsResourceUrl(helperServices.url + "assets/backend/img/makanan/" + item.foto);
+            $scope.files = $sce.trustAsResourceUrl(helperServices.url + "assets/backend/img/foto/" + item.gambar);
         })
         $("#modelId").modal("show");
     }
@@ -217,7 +225,7 @@ function paketController($scope, $http, helperServices, paketServices, message, 
         var paket = $scope.datas.find(x => x.id == $scope.model.id);
         if (item.value) {
             if (paket) {
-                detail = { paket_id: paket.id, menu_id: item.id };
+                detail = { fasilitas_id: paket.id, menu_id: item.id };
                 paketServices.postDetail(detail).then(x => { })
             }
             $scope.model.detail.push(item)
@@ -306,12 +314,13 @@ function pegawaiController($scope, $http, helperServices, pegawaiServices, messa
 }
 
 function customerController($scope, $http, helperServices, customerServices, message, $sce) {
-    $scope.$emit("SendUp", "Customer");
+    $scope.$emit("SendUp", "Konsumen");
     $scope.datas = [];
     $scope.titleModal = "Tambah Data";
     $scope.model = {};
     customerServices.get().then(res => {
         $scope.datas = res;
+        console.log(res);
     })
 
     $scope.save = () => {
@@ -530,10 +539,10 @@ function pesananController($scope, helperServices, pesananAdminServices, message
 
     $scope.check = (item) => {
         if(item.value){
-            item.paket_id = item.id;
+            item.fasilitas_id = item.id;
             $scope.model.detail.push(angular.copy(item));
         }else{
-            var data = $scope.model.detail.find(x=>x.paket_id==item.id);
+            var data = $scope.model.detail.find(x=>x.fasilitas_id==item.id);
             var index = $scope.model.detail.indexOf(data)
             $scope.model.detail.splice(index, 1);
         }
@@ -560,7 +569,7 @@ function pesananController($scope, helperServices, pesananAdminServices, message
         var set = [];
         $scope.model.detail.forEach(element => {
             $scope.datas.paket.forEach(paket => {
-                if(element.paket_id==paket.id){
+                if(element.fasilitas_id==paket.id){
                     var a = angular.copy(paket);
                     a.jumlah = parseFloat(element.jumlah);
                     set.push(a);
@@ -579,5 +588,114 @@ function pesananController($scope, helperServices, pesananAdminServices, message
 
     $scope.cekFile = (item) => {
         console.log(item);
+    }
+}
+
+function bokingController($scope, helperServices, pesananServices, message, $sce) {
+    $scope.$emit("SendUp", "Pegawai");
+    $scope.datas = [];
+    $scope.titleModal = "Tambah Data";
+    $scope.model = {};
+    $scope.model.detail = [];
+    pesananServices.get().then(res => {
+        $scope.datas = res;
+        $scope.datas.pesanan.forEach(element => {
+            element.tanggal_pakai = new Date(element.tanggal_pakai)
+            element.tanggal_pesan = new Date(element.tanggal_pesan)
+        });
+        console.log($scope.datas.pesanan);
+    })
+
+    $scope.save = () => {
+        message.dialog("Data setelah di simpan tidak dapat diubah!", "Ya", "Tidak").then(x => {
+            pesananServices.post($scope.model).then(res => {
+                message.info("Berhasil")
+                document.location.reload();
+                // $("#tambah").modal("hide");
+                // $scope.titleModal = "Tambah Data";
+                // $scope.model = {};
+            })
+        })
+    }
+
+    $scope.edit = (item) => {
+        $scope.titleModal = "Ubah Data";
+        $scope.model = angular.copy(item);
+        $("#tambah").modal("show");
+    }
+
+    $scope.nilai = 0;
+    $scope.setForm = (value) => {
+        $scope.nilai += value;
+        if ($scope.nilai == 2) {
+            $("#tambah").modal("hide");
+            $("#invoice").modal("show");
+            $scope.hitungTotal();
+        }
+        if ($scope.nilai > 0) {
+            if (!$scope.model.orderid) {
+                $scope.model.orderid = Date.now();
+            }
+        }
+    }
+
+    $scope.check = (item) => {
+        if (item.value) {
+            item.fasilitas_id = item.id;
+            $scope.model.detail.push(angular.copy(item));
+        } else {
+            var data = $scope.model.detail.find(x => x.fasilitas_id == item.id);
+            var index = $scope.model.detail.indexOf(data)
+            $scope.model.detail.splice(index, 1);
+        }
+        console.log($scope.model);
+    }
+    $scope.total = 0;
+    $scope.subTotal = 0;
+    $scope.tax = 0;
+    $scope.hitungTotal = () => {
+        $scope.subTotal = 0;
+        $scope.model.detail.forEach(element => {
+            $scope.subTotal += (element.tarif * element.jumlah);
+        });
+        $scope.tax = $scope.subTotal * 0.1;
+        $scope.total = $scope.subTotal + $scope.tax;
+        $scope.model.tagihan = $scope.total;
+    }
+
+    $scope.showInvoice = (item) => {
+        $scope.model = angular.copy(item);
+        $scope.model.tanggal_pesan = new Date($scope.model.tanggal_pesan);
+        $scope.model.waktu_acara = new Date($scope.model.waktu_acara);
+        var set = [];
+        $scope.model.detail.forEach(element => {
+            $scope.datas.fasilitas.forEach(fasilitas => {
+                if (element.fasilitas_id == fasilitas.id) {
+                    var a = angular.copy(fasilitas);
+                    a.jumlah = parseFloat(element.jumlah);
+                    set.push(a);
+                }
+            });
+        });
+        $scope.model.detail = set;
+        $scope.hitungTotal();
+        $("#invoice").modal("show");
+    }
+
+    $scope.showUpload = (item) => {
+        $scope.model = item;
+        console.log(item);
+    }
+
+    $scope.cekFile = (item) => {
+        console.log(item);
+    }
+
+    $scope.uploadBukti = () => {
+        pesananServices.upload($scope.model).then(res => {
+            message.info("Berhasil");
+            $("#upload").modal("hide");
+            $scope.model = {};
+        })
     }
 }
