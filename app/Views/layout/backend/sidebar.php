@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?=base_url('admin/pesanan')?>" class="nav-link {{title=='Pesanan' ? 'active': ''}}">
+                    <a href="<?=base_url('admin/laporan')?>" class="nav-link {{title=='Laporan' ? 'active': ''}}">
                         <i class="nav-icon fas fa-file"></i>
                         <p>
                             Laporan
@@ -87,7 +87,7 @@
 
                 <?php endif;?>
                 <li class="nav-item">
-                    <a href="<?=base_url('customer/jadwal')?>" class="nav-link {{title=='Jadwal' ? 'active': ''}}">
+                    <a href="<?=base_url('jadwal')?>" class="nav-link {{title=='Jadwal' ? 'active': ''}}">
                         <i class="nav-icon fas fa-calendar"></i>
                         <p>
                             Cek Jadwal

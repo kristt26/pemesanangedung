@@ -29,12 +29,16 @@ class Fasilitas extends ResourceController
 
     public function post()
     {
-        $decode = new Decode();
-        $data = $this->request->getJSON();
-        $data->gambar = isset($data->gambar->base64) ? $decode->decodebase64($data->gambar->base64, 'foto') : $data->gambar;
-        $this->model->insert($data);
-        $data->id = $this->model->getInsertID();
-        return $this->respond($data);
+        try {
+            $decode = new Decode();
+            $data = $this->request->getJSON();
+            $data->gambar = isset($data->gambar->base64) ? $decode->decodebase64($data->gambar->base64, 'foto') : $data->gambar;
+            $resul = $this->model->insert($data);
+            $data->id = $this->model->getInsertID();
+            return $this->respond($data);
+        } catch (\Throwable $th) {
+            return $this->fail($th->getMessage());
+        }
     }
 
     public function put($id = null)

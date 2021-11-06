@@ -48,6 +48,15 @@ class PesananModel extends Model
 
     public function select()
     {
-        $data = $this->db->query("");
+        $data = $this->db->query("SELECT
+            `pesanans`.*,
+            `konsumens`.`nik`,
+            `konsumens`.`nama`,
+            `konsumens`.`kontak`,
+            `konsumens`.`alamat`
+        FROM
+            `pesanans`
+            LEFT JOIN `konsumens` ON `pesanans`.`konsumen_id` = `konsumens`.`id`")->getResultArray();
+        return $data;
     }
 }

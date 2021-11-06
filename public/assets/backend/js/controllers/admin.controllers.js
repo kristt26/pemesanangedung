@@ -499,7 +499,7 @@ function pesananController($scope, helperServices, pesananAdminServices, message
     })
 
     $scope.numm=()=>{
-        return $scope.$emit("send", $scope.datas.pesanan.filter(x=>x.status_bayar=='Proses').length);
+        return $scope.$emit("send", $scope.datas.pesanan.filter(x=>x.status_bayar=='0' && x.pembayaran.length>0).length);
     }
 
     $scope.edit = (item) => {
