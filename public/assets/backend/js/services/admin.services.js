@@ -9,6 +9,7 @@ angular.module('admin.service', [])
     .factory('pesananServices', pesananServices)
     .factory('jadwalServices', jadwalServices)
     .factory('pesananAdminServices', pesananAdminServices)
+    .factory('laporanServices', laporanServices)
     ;
 
 
@@ -907,6 +908,36 @@ function pesananAdminServices($http, $q, helperServices, AuthService, message) {
             (err) => {
                 def.reject(err);
                 message.error(err.data.message)
+            }
+        );
+        return def.promise;
+    }
+
+}
+
+function laporanServices($http, $q, helperServices, AuthService) {
+    var controller = helperServices.url + '/admin/laporan/';
+    var service = {};
+    service.data = [];
+    service.instance = false;
+    return {
+        get: get
+    };
+
+    function get(item) {
+        var def = $q.defer();
+        $http({
+            method: 'post',
+            url: controller + 'read',
+            data: item,
+            headers: AuthService.getHeader()
+        }).then(
+            (res) => {
+                def.resolve(res.data);
+            },
+            (err) => {
+                console.log(err.data);
+                def.reject(err.data);
             }
         );
         return def.promise;

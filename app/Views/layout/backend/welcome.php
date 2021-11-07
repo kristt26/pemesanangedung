@@ -78,6 +78,9 @@
 
 
     <script src="../assets/backend/dist/js/angular/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.8.2/angular-sanitize.min.js"
+        integrity="sha512-JkCv2gG5E746DSy2JQlYUJUcw9mT0vyre2KxE2ZuDjNfqG90Bi7GhcHUjLQ2VIAF1QVsY5JMwA1+bjjU5Omabw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../assets/backend/js/apps.js"></script>
     <script src="../assets/backend/js/services/helper.services.js"></script>
     <script src="../assets/backend/js/services/auth.services.js"></script>
@@ -137,7 +140,7 @@
             timePicker: true,
             timePickerIncrement: 30,
             locale: {
-                format: 'MM/DD/YYYY hh:mm A'
+                format: 'YYYY-MM-DD'
             }
         })
         //Date range as a button

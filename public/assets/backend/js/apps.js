@@ -8,7 +8,8 @@ angular.module('apps', [
     'message.service',
     'ngLocale',
     'datatables',
-    'cur.$mask'
+    'cur.$mask',
+    'ngSanitize'
 
 ])
     .run(function ($rootScope) {

@@ -104,7 +104,7 @@ nbproject/
 build/
 nbbuild/
 # dist/
-nbdist/
+# nbdist/
 nbactions.xml
 nb-configuration.xml
 .nb-gradle/

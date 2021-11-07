@@ -8,6 +8,7 @@ angular.module('adminctrl', [])
     .controller('jadwalController', jadwalController)
     .controller('pesananController', pesananController)
     .controller('bokingController', bokingController)
+    .controller('laporanController', laporanController)
     ;
 
 
@@ -697,5 +698,74 @@ function bokingController($scope, helperServices, pesananServices, message, $sce
             $("#upload").modal("hide");
             $scope.model = {};
         })
+    }
+}
+
+function laporanController($scope, laporanServices) {
+    $scope.itemHeader = { title: "Laporan", breadcrumb: "Laporan", header: "Laporan" };
+    $scope.$emit("SendUp", $scope.itemHeader);
+    $scope.model = {};
+    $scope.datas = [];
+    $scope.a = [];
+    
+    setTimeout((x) => {
+        $.LoadingOverlay("hide");
+    }, 1000);
+    $scope.str="";
+    $scope.tampil = (item) => {
+        $.LoadingOverlay("show");
+        var a = item.split(' - ');
+        if (a[0] !== a[1]) {
+            $scope.model.awal = a[0];
+            $scope.model.akhir = a[1];
+            laporanServices.get($scope.model).then(x => {
+                $scope.datas = x;
+                $scope.str = "";
+                $scope.html = "<table class='table table-sm table-bordered'>" +
+                    "<thead>" +
+                    "<tr>" +
+                    "<th rowspan='2' class='align-middle text-center'>No</th>" +
+                    "<th rowspan='2' class='align-middle text-center'>Konsumen</th>" +
+                    "<th rowspan='2' class='align-middle text-center'>Tanggal Acara</th>" +
+                    "<th colspan='2' class='align-middle text-center'>Pembayaran</th>" +
+                    "<th rowspan='2' class='align-middle text-center'>Status Bayar</th>" +
+                    "<th rowspan='2' class='align-middle text-center'>Total</th>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<th class='align-middle text-center'>Tanggal Bayar</th>" +
+                    "<th class='align-middle text-center'>Nominal</th>" +
+                    "</tr>" +
+                    "</thead>" +
+                    "<tbody>";
+                    
+                $scope.datas.forEach((element, key) => {
+                    
+                    $scope.html += ("<tr>"+
+                        "<td rowspan='" + element.pembayaran.length+"'>"+(key + 1)+"</td>"+
+                        "<td rowspan='" + element.pembayaran.length +"'>"+ element.nama +"</td>"+
+                        "<td rowspan='" + element.pembayaran.length + "'>" + element.tanggal_pakai +"</td>"+
+                        "<td>" + element.pembayaran[0].tanggalbayar +"</td>"+
+                        "<td>Rp. " + element.pembayaran[0].nominal +"</td>"+
+                        "<td rowspan='" + element.pembayaran.length + "'>" + element.status_bayar +"</td>"+
+                        "<td rowspan='" + element.pembayaran.length + "'>" + element.total_bayar.nominal +"</td>"+
+                    "</tr>");
+                    element.pembayaran.forEach((bayar, keybayar) => {
+                        if(keybayar != 0 ){
+                            $scope.html += ("<tr>"+
+                                "<td>"+ bayar.tanggalbayar +"</td>"+
+                                "<td>Rp. "+ bayar.nominal +"</td>"+
+                            "</tr>");
+                        }
+                    });
+                });
+                $scope.html += ("</tbody>" +
+                    "</table>");
+                $.LoadingOverlay("hide");
+            })
+        }
+        $.LoadingOverlay("hide");
+    }
+    $scope.print = () => {
+        $("#print").printArea();
     }
 }

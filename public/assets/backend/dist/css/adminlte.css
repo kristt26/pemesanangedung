@@ -33567,7 +33567,7 @@ html.maximized-card {
 .card-body.p-0 .table tfoot > tr > td:first-of-type,
 .card-body.p-0 .table tbody > tr > th:first-of-type,
 .card-body.p-0 .table tbody > tr > td:first-of-type {
-  padding-left: 1.5rem;
+  padding-left: -0.5rem;
 }
 
 .card-body.p-0 .table thead > tr > th:last-of-type,

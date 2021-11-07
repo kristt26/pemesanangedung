@@ -56,7 +56,7 @@ class PesananModel extends Model
             `konsumens`.`alamat`
         FROM
             `pesanans`
-            LEFT JOIN `konsumens` ON `pesanans`.`konsumen_id` = `konsumens`.`id`")->getResultArray();
+            LEFT JOIN `konsumens` ON `pesanans`.`konsumen_id` = `konsumens`.`id`")->getResult();
         return $data;
     }
 }
