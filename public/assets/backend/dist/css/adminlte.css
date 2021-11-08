@@ -33576,7 +33576,7 @@ html.maximized-card {
 .card-body.p-0 .table tfoot > tr > td:last-of-type,
 .card-body.p-0 .table tbody > tr > th:last-of-type,
 .card-body.p-0 .table tbody > tr > td:last-of-type {
-  padding-right: 1.5rem;
+  padding-right: -0.5rem;
 }
 
 .table-hover tbody tr.expandable-body:hover {

@@ -25,9 +25,9 @@ class Laporan extends ResourceController
         return view('layout/backend/welcome', $data);
     }
 
-    public function read()
+    public function read($awal = null, $akhir = null)
     {
-        $pesanans = $this->pesanan->select();
+        $pesanans = $this->pesanan->laporan($awal, $akhir);
         foreach ($pesanans as $key => $pesanan) {
             $pesanan->pembayaran = $this->pembayaran->where('pesanan_id', $pesanan->id)->get()->getResultObject();
             $pesanan->total_bayar = $this->pembayaran->where('pesanan_id', $pesanan->id)->selectSum('nominal')->get()->getRow();

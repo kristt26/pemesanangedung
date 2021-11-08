@@ -14,9 +14,9 @@
 </nav>
 <aside class="main-sidebar sidebar-dark-navy bg-custom1 elevation-4">
     <a href="../assets/backend/index3.html" class="brand-link">
-        <!-- <img src="../assets/backend/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-        <span class="brand-text font-weight-light">Jhona Catering</span>
+        <img src="../assets/backend/dist/img/logo.jpeg" alt="AdminLTE Logo" class="brand-image elevation-1"
+            style="opacity: .8">
+        <span class="brand-text font-weight-light"><strong>PTC</strong></span>
     </a>
     <div class="sidebar">
         <nav class="mt-2">
@@ -24,7 +24,7 @@
                 data-accordion="false">
                 <!-- <?php if (session()->get('role') == 'Admin'): ?> -->
                 <li class="nav-item">
-                    <a href="../widgets.html" class="nav-link">
+                    <a href="<?=base_url('admin/home')?>" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Home
@@ -33,7 +33,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?=base_url('admin/konsumen')?>" class="nav-link {{title=='Konsumen' ? 'active': ''}}">
-                        <i class="nav-icon fas fa-utensils"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             Konsumen
                         </p>
@@ -41,7 +41,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?=base_url('admin/fasilitas')?>" class="nav-link {{title=='Fasilitas' ? 'active': ''}}">
-                        <i class="nav-icon fas fa-utensils"></i>
+                        <i class="nav-icon fas fa-building"></i>
                         <p>
                             Fasilitas
                         </p>

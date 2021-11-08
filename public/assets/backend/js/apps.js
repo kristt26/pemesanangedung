@@ -36,7 +36,7 @@ angular.module('apps', [
     ;
 
 function indexController($scope) {
-    $scope.titleHeader = "Pemesanan Catering";
+    $scope.titleHeader = "PTC";
     $scope.header = "";
     $scope.breadcrumb = "";
     $scope.title;

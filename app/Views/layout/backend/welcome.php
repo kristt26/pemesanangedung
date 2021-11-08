@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../assets/backend/plugins/bs-stepper/css/bs-stepper.min.css">
     <link rel="stylesheet" href="../assets/backend/plugins/dropzone/min/dropzone.min.css">
     <link rel="stylesheet" href="../assets/backend/dist/css/adminlte.css">
+    <link rel="stylesheet" href="../assets/backend/dist/css/style.css">
     <link rel="stylesheet" href="../assets/backend/dist/css/bootstrap-image-checkbox.min.css">
 </head>
 
@@ -99,6 +100,8 @@
     <script src="../assets/backend/libs/calendar/main.min.js"></script>
     <script src="../assets/backend/libs/calendar/locales-all.min.js"></script>
     <script src="../assets/backend/libs/angularjs-currency-input-mask/dist/angularjs-currency-input-mask.min.js">
+    </script>
+    <script src="../assets/backend/libs/jquery.PrintArea.js">
     </script>
     <script>
     $(function() {

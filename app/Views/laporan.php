@@ -21,10 +21,11 @@
                 <div id="print">
                     <div class="screen">
                         <div class="col-md-12 d-flex justify-content-between">
-                            <div class="col-md-4"><img src="<?=base_url('public/img/logo.png');?>" width="100px"></div>
+                            <div class="col-md-4"><img src="../assets/backend/dist/img/logo.jpeg" width="100px"></div>
                             <div class="col-md-4 text-center">
                                 <h2>LAPORAN</h2>
-                                <h5>TANGGAL: {{tanggal}}</h5>
+                                <h5>Tanggal {{model.awal | date: 'd MMMM y'}} s/d {{model.akhir | date: 'd MMMM y'}}
+                                </h5>
 
                             </div>
                             <div class="col-md-4">&nbsp;</div>

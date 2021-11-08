@@ -566,12 +566,12 @@ function pesananController($scope, helperServices, pesananAdminServices, message
     $scope.showInvoice = (item)=>{
         $scope.model = angular.copy(item);
         $scope.model.tanggal_pesan = new Date($scope.model.tanggal_pesan);
-        $scope.model.waktu_acara = new Date($scope.model.waktu_acara);
+        $scope.model.tanggal_pakai = new Date($scope.model.tanggal_pakai);
         var set = [];
         $scope.model.detail.forEach(element => {
-            $scope.datas.paket.forEach(paket => {
-                if(element.fasilitas_id==paket.id){
-                    var a = angular.copy(paket);
+            $scope.datas.fasilitas.forEach(fasilitas => {
+                if (element.fasilitas_id == fasilitas.id) {
+                    var a = angular.copy(fasilitas);
                     a.jumlah = parseFloat(element.jumlah);
                     set.push(a);
                 }
@@ -667,7 +667,7 @@ function bokingController($scope, helperServices, pesananServices, message, $sce
     $scope.showInvoice = (item) => {
         $scope.model = angular.copy(item);
         $scope.model.tanggal_pesan = new Date($scope.model.tanggal_pesan);
-        $scope.model.waktu_acara = new Date($scope.model.waktu_acara);
+        $scope.model.tanggal_pakai = new Date($scope.model.tanggal_pakai);
         var set = [];
         $scope.model.detail.forEach(element => {
             $scope.datas.fasilitas.forEach(fasilitas => {
@@ -715,9 +715,9 @@ function laporanController($scope, laporanServices) {
     $scope.tampil = (item) => {
         $.LoadingOverlay("show");
         var a = item.split(' - ');
+        $scope.model.awal = a[0];
+        $scope.model.akhir = a[1];
         if (a[0] !== a[1]) {
-            $scope.model.awal = a[0];
-            $scope.model.akhir = a[1];
             laporanServices.get($scope.model).then(x => {
                 $scope.datas = x;
                 $scope.str = "";
@@ -727,38 +727,55 @@ function laporanController($scope, laporanServices) {
                     "<th rowspan='2' class='align-middle text-center'>No</th>" +
                     "<th rowspan='2' class='align-middle text-center'>Konsumen</th>" +
                     "<th rowspan='2' class='align-middle text-center'>Tanggal Acara</th>" +
-                    "<th colspan='2' class='align-middle text-center'>Pembayaran</th>" +
                     "<th rowspan='2' class='align-middle text-center'>Status Bayar</th>" +
-                    "<th rowspan='2' class='align-middle text-center'>Total</th>" +
+                    "<th colspan='3' class='align-middle text-center'>Pembayaran</th>" +
+                    "<th rowspan='2' class='align-middle text-center'>Tagihan</th>" +
+                    "<th rowspan='2' class='align-middle text-center'>Sisa Tagihan</th>" +
                     "</tr>" +
                     "<tr>" +
                     "<th class='align-middle text-center'>Tanggal Bayar</th>" +
                     "<th class='align-middle text-center'>Nominal</th>" +
+                    "<th class='align-middle text-center'>Total Bayar</th>" +
                     "</tr>" +
                     "</thead>" +
                     "<tbody>";
                     
+                    var totalBayar = 0
+                    var totalTagihan = 0
                 $scope.datas.forEach((element, key) => {
-                    
-                    $scope.html += ("<tr>"+
-                        "<td rowspan='" + element.pembayaran.length+"'>"+(key + 1)+"</td>"+
-                        "<td rowspan='" + element.pembayaran.length +"'>"+ element.nama +"</td>"+
-                        "<td rowspan='" + element.pembayaran.length + "'>" + element.tanggal_pakai +"</td>"+
-                        "<td>" + element.pembayaran[0].tanggalbayar +"</td>"+
-                        "<td>Rp. " + element.pembayaran[0].nominal +"</td>"+
-                        "<td rowspan='" + element.pembayaran.length + "'>" + element.status_bayar +"</td>"+
-                        "<td rowspan='" + element.pembayaran.length + "'>" + element.total_bayar.nominal +"</td>"+
-                    "</tr>");
-                    element.pembayaran.forEach((bayar, keybayar) => {
-                        if(keybayar != 0 ){
-                            $scope.html += ("<tr>"+
-                                "<td>"+ bayar.tanggalbayar +"</td>"+
-                                "<td>Rp. "+ bayar.nominal +"</td>"+
-                            "</tr>");
-                        }
-                    });
+                    if(element.status_bayar!='0' && element.pembayaran.length>0){
+                        totalBayar += parseFloat(element.total_bayar.nominal);
+                        totalTagihan += parseFloat(element.tagihan);
+                        $scope.html += ("<tr>"+
+                            "<td rowspan='" + element.pembayaran.length+"'>"+(key + 1)+"</td>"+
+                            "<td rowspan='" + element.pembayaran.length +"'>"+ element.nama +"</td>"+
+                            "<td rowspan='" + element.pembayaran.length + "'>" + element.tanggal_pakai +"</td>"+
+                            "<td rowspan='" + element.pembayaran.length + "'>" + (element.status_bayar == '0' ? 'Belum Bayar' : element.status_bayar=='1' ? 'Panjar' : 'Lunas') +"</td>"+
+                            "<td>" + element.pembayaran[0].tanggalbayar +"</td>"+
+                            "<td class='text-right'>" + new Intl.NumberFormat('id-IN', { style: 'currency', currency: 'IDR' }).format(element.pembayaran[0].nominal)  +"</td>"+
+                            "<td class='text-right' rowspan='" + element.pembayaran.length + "'>" + new Intl.NumberFormat('id-IN', { style: 'currency', currency: 'IDR' }).format(element.total_bayar.nominal)  +"</td>"+
+                            "<td class='text-right' rowspan='" + element.pembayaran.length + "'>" + new Intl.NumberFormat('id-IN', { style: 'currency', currency: 'IDR' }).format(element.tagihan) +"</td>"+
+                            "<td class='text-right' rowspan='" + element.pembayaran.length + "'>" + new Intl.NumberFormat('id-IN', { style: 'currency', currency: 'IDR' }).format(parseFloat(element.tagihan) - parseFloat(element.total_bayar.nominal)) +"</td>"+
+                        "</tr>");
+                        element.pembayaran.forEach((bayar, keybayar) => {
+                            if(keybayar != 0 ){
+                                $scope.html += ("<tr>"+
+                                    "<td>"+ bayar.tanggalbayar +"</td>"+
+                                    "<td class='text-right'>" + new Intl.NumberFormat('id-IN', { style: 'currency', currency: 'IDR' }).format(bayar.nominal) +"</td>"+
+                                "</tr>");
+                            }
+                        });
+                    }
                 });
                 $scope.html += ("</tbody>" +
+                "<tfoot>"+
+                    "<tr>"+
+                        "<td colspan='6' class='text-center'><strong>Total</strong></td>"+
+                    "<td class='text-right'>" + new Intl.NumberFormat('id-IN', { style: 'currency', currency: 'IDR' }).format(totalBayar) + "</td>"+
+                    "<td class='text-right'>" + new Intl.NumberFormat('id-IN', { style: 'currency', currency: 'IDR' }).format(totalTagihan) + "</td>"+
+                        "<td class='text-right'>" + new Intl.NumberFormat('id-IN', { style: 'currency', currency: 'IDR' }).format(totalTagihan - totalBayar) + "</td>"+
+                    "</tr>"+
+                "</tfoot>"+
                     "</table>");
                 $.LoadingOverlay("hide");
             })

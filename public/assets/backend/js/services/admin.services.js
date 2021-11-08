@@ -927,9 +927,8 @@ function laporanServices($http, $q, helperServices, AuthService) {
     function get(item) {
         var def = $q.defer();
         $http({
-            method: 'post',
-            url: controller + 'read',
-            data: item,
+            method: 'get',
+            url: controller + 'read/' + item.awal + "/" + item.akhir,
             headers: AuthService.getHeader()
         }).then(
             (res) => {

@@ -22,7 +22,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../assets/backend/index2.html" class="h1">PTC</a>
+                <a href="../assets/backend/index2.html" class="h3">Penyewaan Gedung PTC</a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Silahkan Login di sini</p>

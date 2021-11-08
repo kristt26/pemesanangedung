@@ -46,7 +46,7 @@ class PesananModel extends Model
         $this->db = db_connect('default');
     }
 
-    public function select()
+    public function select($awal = null, $akhir = null)
     {
         $data = $this->db->query("SELECT
             `pesanans`.*,
@@ -57,6 +57,19 @@ class PesananModel extends Model
         FROM
             `pesanans`
             LEFT JOIN `konsumens` ON `pesanans`.`konsumen_id` = `konsumens`.`id`")->getResult();
+        return $data;
+    }
+    public function laporan($awal = null, $akhir = null)
+    {
+        $data = $this->db->query("SELECT
+            `pesanans`.*,
+            `konsumens`.`nik`,
+            `konsumens`.`nama`,
+            `konsumens`.`kontak`,
+            `konsumens`.`alamat`
+        FROM
+            `pesanans`
+            LEFT JOIN `konsumens` ON `pesanans`.`konsumen_id` = `konsumens`.`id` WHERE tanggal_pesan >= '$awal' AND tanggal_pesan <= '$akhir'")->getResult();
         return $data;
     }
 }

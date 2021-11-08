@@ -9,7 +9,8 @@ class Pesanan extends ResourceController
     protected $modelName = 'App\Models\PesananModel';
     protected $format = 'json';
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->pembayaran = new \App\Models\PembayaranModel();
         $this->detailPesanan = new \App\Models\DetailPesananModel();
     }
@@ -24,11 +25,13 @@ class Pesanan extends ResourceController
 
     public function read()
     {
+        $fasilitas = new \App\Models\FasilitasModel();
         $data['pesanan'] = $this->model->select();
         foreach ($data['pesanan'] as $key => $value) {
-            $data['pesanan'][$key]['detail'] = $this->detailPesanan->where('pesanan_id', $value['id'])->findAll();
-            $data['pesanan'][$key]['pembayaran'] = $this->pembayaran->where('pesanan_id', $value['id'])->findAll();
+            $value->detail = $this->detailPesanan->where('pesanan_id', $value->id)->findAll();
+            $value->pembayaran = $this->pembayaran->where('pesanan_id', $value->id)->findAll();
         }
+        $data['fasilitas'] = $fasilitas->findAll();
         return $this->respond($data);
     }
 
@@ -36,7 +39,7 @@ class Pesanan extends ResourceController
     {
         $data = $this->request->getJSON();
         $item = [
-            "status_bayar"=>$data->status_bayar
+            "status_bayar" => $data->status_bayar,
         ];
         $this->model->update($id, $item);
         return $this->respondUpdated($data, "diubah");

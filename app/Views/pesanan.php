@@ -4,7 +4,8 @@
             <h3 class="card-title"><i class="fas fa-list"></i> Daftar Pesanan</h3>
             <div class="card-tools">
                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"
-                    ng-click="model={}; model.detail=[]; hitungTotal()"><strong><i class="fas fa-plus-circle"></i></strong></button>
+                    ng-click="model={}; model.detail=[]; hitungTotal()"><strong><i
+                            class="fas fa-plus-circle"></i></strong></button>
             </div>
         </div>
         <div class="card-body">
@@ -25,7 +26,8 @@
                         <td>{{item.tanggal_pakai | date: 'EEEE, d MMMM y'}}</td>
                         <td>{{item.peruntukan}}</td>
                         <td>{{item.tagihan | currency: 'Rp. '}}</td>
-                        <td>{{item.status_bayar=='0' ? 'Belum Bayar' :  item.status_bayar=='1' ? 'Panjar' : Lunas}}</td>
+                        <td>{{item.status_bayar=='0' ? 'Belum Bayar' :  item.status_bayar=='1' ? 'Panjar' : 'Lunas'}}
+                        </td>
                         <td style="width: 10%">
                             <div class="d-flex justify-content-center">
                                 <button class="btn btn-success btn-sm mr-2" ng-click="edit(item)"><i
@@ -99,11 +101,12 @@
                                             <td>{{item.harga}}</td>
                                             <td>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control form-control-sm" ng-model="item.jumlah" ng-disabled="model.id"
+                                                    <input type="number" class="form-control form-control-sm"
+                                                        ng-model="item.jumlah" ng-disabled="model.id"
                                                         ng-change="hitungTotal()" required>
                                                 </div>
                                             </td>
-                                            <td width = 20%>{{item.harga*item.jumlah | currency}}</td>
+                                            <td width=20%>{{item.harga*item.jumlah | currency}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -158,14 +161,15 @@
                             <div class="col-12">
                                 <!-- <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
                                         class="fas fa-print"></i> Print</a> -->
-                                <button ng-if="!model.id" id="pay-button" type="button" class="btn btn-success float-right"
-                                    ng-click="save()"><i class="far fa-credit-card"></i>
+                                <button ng-if="!model.id" id="pay-button" type="button"
+                                    class="btn btn-success float-right" ng-click="save()"><i
+                                        class="far fa-credit-card"></i>
                                     Confirm
                                 </button>
                                 <button ng-show="nilai>0" type="button" class="btn btn-warning btn-sm"
                                     ng-click="setForm(-1)">Kembali</button>
-                                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal" ng-click="nilai=0"
-                                    style="margin-right: 5px;">
+                                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal"
+                                    ng-click="nilai=0" style="margin-right: 5px;">
                                     <i class="fas fa-back"></i> Batal
                                 </button>
                             </div>
@@ -191,31 +195,33 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="item in model.pembayaran">
-                                    <img ng-src="{{item.bukti}}" class="img-responsive " width="100%"/>
+                                    <img ng-src="{{item.bukti}}" class="img-responsive " width="100%" />
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="totalTagihan" class="col-sm-2 col-form-label col-form-label-sm">Total Tagihan</label>
+                            <label for="totalTagihan" class="col-sm-2 col-form-label col-form-label-sm">Total
+                                Tagihan</label>
                             <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext form-control-sm" id="totalTagihan"
-                                    mask-currency="'Rp. '" ng-model="model.tagihan">
+                                <input type="text" readonly class="form-control-plaintext form-control-sm"
+                                    id="totalTagihan" mask-currency="'Rp. '" ng-model="model.tagihan">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nominal1" class="col-sm-2 col-form-label col-form-label-sm">Nomimal</label>
                             <div class="col-sm-4">
-                                <input type="text" readonly class="form-control-plaintext form-control-sm"  id="nominal1"
+                                <input type="text" readonly class="form-control-plaintext form-control-sm" id="nominal1"
                                     mask-currency="'Rp. '" ng-model="totalNomina">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="set_status" class="col-sm-2 col-form-label col-form-label-sm">Set Status</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm" id="set_status" ng-model="model.status_bayar">
+                                <select class="form-control form-control-sm" id="set_status"
+                                    ng-model="model.status_bayar">
                                     <option value="1">Panjar</option>
                                     <option value="2">Lunas</option>
-                                  </select>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -232,7 +238,8 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="updateStatus" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal fade" id="updateStatus" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <img ng-src="{{files}}" class="img-responsive " />

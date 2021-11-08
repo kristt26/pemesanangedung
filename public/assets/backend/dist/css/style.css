@@ -111,6 +111,30 @@
     -o-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
 }
+
+.containerr {
+                display: flex;
+                height: 60vh;
+                justify-content: center;
+                align-items: center;
+                direction: row;
+            }
+         
+            @media screen {
+                #print {
+                    /* font-family:verdana, arial, sans-serif; */
+                }
+                .screen{
+                    display:none;
+                }
+            }
+
+            @media print {
+                /* #print {font-family:georgia, times, serif;} */
+                .screen{
+                    display:block;
+                }
+            }
 /* .panel-pricing:hover{
 	margin-top: -8px;
 } */

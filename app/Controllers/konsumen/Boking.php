@@ -44,8 +44,14 @@ class Boking extends ResourceController
         $this->model->insert($data);
         $data->id = $this->model->getInsertID();
         foreach ($data->detail as $key => $value) {
+            $detail = [
+                'pesanan_id' => $data->id,
+                'fasilitas_id' => $value->fasilitas_id,
+                'jumlah' => $value->jumlah,
+                'nominal' => $value->tarif,
+            ];
             $value->pesanan_id = $data->id;
-            $this->detailPesanan->insert($value);
+            $this->detailPesanan->insert($detail);
             $value->id = $this->detailPesanan->getInsertID();
         }
         return $this->respondCreated($data, "disimpan");
@@ -84,7 +90,7 @@ class Boking extends ResourceController
                 $this->pembayaran->insert($set);
                 $data->pembayaran = $this->pembayaran->where('pesanan_id', $data->id)->findAll();
                 return $this->respondCreated($data, "disimpan");
-            } catch (\Throwable $th) {
+            } catch (\Throwable$th) {
                 $pesan = $th->getMessage();
                 return $this->fail($pesan);
             }
