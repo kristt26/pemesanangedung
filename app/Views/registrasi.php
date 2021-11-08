@@ -20,11 +20,11 @@
 <body class="hold-transition register-page">
     <div class="register-box">
         <div class="card card-outline card-primary">
-            <div class="card-header text-center">
+            <!-- <div class="card-header text-center">
                 <a href="../assets/backend/index2.html" class="h1"><b>Admin</b>LTE</a>
-            </div>
+            </div> -->
             <div class="card-body">
-                <p class="login-box-msg">Register a new membership</p>
+                <p class="login-box-msg">Register a new user</p>
 
                 <form action="<?=base_url("auth/register")?>" method="post">
                     <div class="input-group mb-3">
