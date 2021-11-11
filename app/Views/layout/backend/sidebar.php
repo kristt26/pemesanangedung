@@ -69,7 +69,7 @@
 
                 <?php if (session()->get('role') == 'Konsumen'): ?>
                 <li class="nav-item">
-                    <a href="<?=base_url('customer/home')?>" class="nav-link {{title=='Home' ? 'active': ''}}">
+                    <a href="<?=base_url('home')?>" class="nav-link {{title=='Home' ? 'active': ''}}">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Home
