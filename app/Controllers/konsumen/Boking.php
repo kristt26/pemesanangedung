@@ -30,6 +30,8 @@ class Boking extends ResourceController
         $data['pesanan'] = $this->model->where('konsumen_id', session()->get('id'))->get()->getResultObject();
         foreach ($data['pesanan'] as $key => $pesan) {
             $pesan->detail = $this->detailPesanan->where('pesanan_id', $pesan->id)->get()->getResultObject();
+            $pesan->pembayaran = $this->pembayaran->where('pesanan_id', $pesan->id)->get()->getResultObject();
+            $pesan->totalBayar = $this->pembayaran->where('pesanan_id', $pesan->id)->selectSum('nominal')->get()->getRowObject()->nominal;
         }
         $data['fasilitas'] = $fasilitas->findAll();
         return $this->respond($data);

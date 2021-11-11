@@ -175,16 +175,18 @@ function fasilitasServices($http, $q, helperServices, AuthService, message) {
         $http({
             method: 'put',
             url: controller + "/put/" + param.id,
-            data: item,
+            data: param,
             headers: AuthService.getHeader()
         }).then(
             (res) => {
                 var data = service.data.find(x => x.id == param.id);
                 if (data) {
-                    data.menu = param.menu;
+                    data.nama = param.nama;
                     data.satuan = param.satuan;
-                    data.harga = param.harga;
-                    data.foto = res.data.foto;
+                    data.tarif = param.tarif;
+                    data.gambar = res.data.gambar;
+                    data.keterangan = res.data.keterangan;
+                    data.jumlah = res.data.jumlah;
                 }
                 def.resolve(res.data);
             },
@@ -860,6 +862,7 @@ function pesananAdminServices($http, $q, helperServices, AuthService, message) {
                 var data = service.data.pesanan.find(x => x.id == param.id);
                 if (data) {
                     data.status_bayar = param.status_bayar;
+                    parseFloat(data.totalBayar) += parseFloat(param.nominal);
                 }
                 def.resolve(res.data);
             },

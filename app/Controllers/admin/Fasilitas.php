@@ -43,11 +43,13 @@ class Fasilitas extends ResourceController
 
     public function put($id = null)
     {
-        $data = $this->request->getJSON();
         try {
+            $decode = new Decode();
+            $data = $this->request->getJSON();
+            $data->gambar = isset($data->gambar->base64) ? $decode->decodebase64($data->gambar->base64, 'foto') : $data->gambar;
             $this->model->update($id, $data);
             return $this->respond($data);
-        } catch (\Throwable$th) {
+        } catch (\Throwable $th) {
             return $this->fail($th->getMessage());
         }
 

@@ -16,6 +16,7 @@
                             <th>No</th>
                             <th>Tanggal penggunaan</th>
                             <th>Acara</th>
+                            <th>Total Tagihan</th>
                             <th>Tanggal Pesan</th>
                             <th>Status Pembayaran</th>
                             <th><i class="fas fa-cog fa-spin"></i></th>
@@ -26,8 +27,9 @@
                             <td>{{$index+1}}</td>
                             <td>{{item.tanggal_pakai | date: 'EEEE, d MMMM y'}}</td>
                             <td>{{item.peruntukan}}</td>
+                            <td>{{item.tagihan - item.totalBayar | currency: 'Rp. '}}</td>
                             <td>{{item.tanggal_pesan | date: 'd MMMM y'}}</td>
-                            <td>{{item.status_bayar=='0' ? 'Belum Bayar' :  item.status_bayar=='1' ? 'Panjar' : Lunas}}
+                            <td>{{item.status_bayar=='0' ? 'Belum Bayar' :  item.status_bayar=='1' ? 'Panjar' : 'Lunas'}}
                             </td>
                             <td style="width: 10%">
                                 <div class="d-flex justify-content-center">
@@ -270,7 +272,7 @@
                                 Tagihan</label>
                             <div class="col-sm-10">
                                 <input type="text" readonly class="form-control-plaintext form-control-sm"
-                                    id="totalTagihan" mask-currency="'Rp. '" ng-model="model.tagihan">
+                                    id="totalTagihan" mask-currency="'Rp. '" ng-model="model.tagihanSisa">
                             </div>
                         </div>
                         <div class="form-group row">

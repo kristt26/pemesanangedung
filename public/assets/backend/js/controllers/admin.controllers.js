@@ -497,6 +497,7 @@ function pesananController($scope, helperServices, pesananAdminServices, message
     pesananAdminServices.get().then(res => {
         $scope.datas = res;
         $scope.numm();
+        console.log(res);
     })
 
     $scope.numm=()=>{
@@ -556,9 +557,9 @@ function pesananController($scope, helperServices, pesananAdminServices, message
     $scope.hitungTotal=()=>{
         $scope.subTotal = 0;
         $scope.model.detail.forEach(element => {
-            $scope.subTotal += (element.harga*element.jumlah);
+            $scope.subTotal += (element.tarif * element.jumlah);
         });
-        $scope.tax = $scope.subTotal*0.1;
+        // $scope.tax = $scope.subTotal * 0.1;
         $scope.total = $scope.subTotal + $scope.tax;
         $scope.model.tagihan = $scope.total;
     }
@@ -622,6 +623,7 @@ function bokingController($scope, helperServices, pesananServices, message, $sce
     $scope.edit = (item) => {
         $scope.titleModal = "Ubah Data";
         $scope.model = angular.copy(item);
+        $scope.model.tagihanSisa = $scope.model.tagihan - $scope.model.totalBayar;
         $("#tambah").modal("show");
     }
 
@@ -659,7 +661,7 @@ function bokingController($scope, helperServices, pesananServices, message, $sce
         $scope.model.detail.forEach(element => {
             $scope.subTotal += (element.tarif * element.jumlah);
         });
-        $scope.tax = $scope.subTotal * 0.1;
+        // $scope.tax = $scope.subTotal * 0.1;
         $scope.total = $scope.subTotal + $scope.tax;
         $scope.model.tagihan = $scope.total;
     }
@@ -684,7 +686,8 @@ function bokingController($scope, helperServices, pesananServices, message, $sce
     }
 
     $scope.showUpload = (item) => {
-        $scope.model = item;
+        $scope.model = angular.copy(item);
+        $scope.model.tagihanSisa = $scope.model.tagihan - $scope.model.totalBayar;
         console.log(item);
     }
 

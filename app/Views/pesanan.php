@@ -25,7 +25,7 @@
                         <td>{{$index+1}}</td>
                         <td>{{item.tanggal_pakai | date: 'EEEE, d MMMM y'}}</td>
                         <td>{{item.peruntukan}}</td>
-                        <td>{{item.tagihan | currency: 'Rp. '}}</td>
+                        <td>{{item.tagihan - item.totalBayar | currency: 'Rp. '}}</td>
                         <td>{{item.status_bayar=='0' ? 'Belum Bayar' :  item.status_bayar=='1' ? 'Panjar' : 'Lunas'}}
                         </td>
                         <td style="width: 10%">
@@ -72,16 +72,15 @@
                             <div class="col-sm-4 invoice-col">
                                 To
                                 <address>
-                                    <strong><?=session()->get("nama");?></strong><br>
-                                    <?=session()->get("alamat") ? session()->get("alamat") : '';?><br>
-                                    Phone: <?=session()->get("kontak");?><br>
-                                    <!-- Email: <?=session()->get("email");?> -->
+                                    <strong>{{model.nama}}</strong><br>
+                                    {{model.alamat}}<br>
+                                    Phone: {{model.kontak}}
                                 </address>
                             </div>
                             <div class="col-sm-4 invoice-col">
                                 <br>
                                 <b>Order ID:</b> {{model.orderid}}<br>
-                                <b>Payment Due:</b> <?=date('d-m-Y', strtotime(' +1 day'))?><br>
+                                <b>Payment Due:</b> {{model.tanggal_pesan | date: 'd MMMM y'}}<br>
                             </div>
                         </div>
                         <div class="row">
@@ -97,16 +96,16 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="item in model.detail">
-                                            <td>{{item.nama_paket}}</td>
-                                            <td>{{item.harga}}</td>
+                                            <td>{{item.nama}}</td>
+                                            <td>{{item.tarif}}</td>
                                             <td>
                                                 <div class="col-sm-3">
-                                                    <input type="number" class="form-control form-control-sm"
-                                                        ng-model="item.jumlah" ng-disabled="model.id"
-                                                        ng-change="hitungTotal()" required>
+                                                    <input type="number" string-to-number
+                                                        class="form-control form-control-sm" ng-model="item.jumlah"
+                                                        ng-disabled="model.id" ng-change="hitungTotal()" required>
                                                 </div>
                                             </td>
-                                            <td width=20%>{{item.harga*item.jumlah | currency}}</td>
+                                            <td width=20%>{{item.tarif*item.jumlah | currency}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

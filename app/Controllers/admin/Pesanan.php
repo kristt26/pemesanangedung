@@ -30,6 +30,7 @@ class Pesanan extends ResourceController
         foreach ($data['pesanan'] as $key => $value) {
             $value->detail = $this->detailPesanan->where('pesanan_id', $value->id)->findAll();
             $value->pembayaran = $this->pembayaran->where('pesanan_id', $value->id)->findAll();
+            $value->totalBayar = $this->pembayaran->where('pesanan_id', $value->id)->selectSum('nominal')->get()->getRowObject()->nominal;
         }
         $data['fasilitas'] = $fasilitas->findAll();
         return $this->respond($data);
